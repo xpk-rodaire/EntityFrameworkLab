@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DAL.BizObjects.TypeA
+namespace EFLab.DAL.BizObjects.TypeA
 {
+    [Table("t_Object1", Schema = "TypeA")]
     public class TypeAObject1
     {
         public int TypeAObject1Id { get; set; }

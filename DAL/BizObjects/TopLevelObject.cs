@@ -4,10 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DAL.BizObjects
+namespace EFLab.DAL.BizObjects
 {
     public class TopLevelObject
     {
+        public TopLevelObject()
+        {
+            this.SecondLevelObjects = new List<SecondLevelObjectBase>();
+        }
+
         public int TopLevelObjectId { get; set; }
 
         public string Property1 { get; set; }

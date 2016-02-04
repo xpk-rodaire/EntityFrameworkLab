@@ -8,12 +8,23 @@ namespace EFLab.DAL.BizObjects
 {
     public abstract class SecondLevelObjectBase
     {
+        public SecondLevelObjectBase()
+        {
+        }
+
         public int SecondLevelObjectBaseId { get; set; }
 
-        public string Property1 { get; set; }
-        public string Property2 { get; set; }
-        public string Property3 { get; set; }
+        public string SecondBase_Property1 { get; set; }
+        public string SecondBase_Property2 { get; set; }
+        public string SecondBase_Property3 { get; set; }
 
         public TopLevelObject Parent { get; set; }
+
+        public virtual void PopulateTest()
+        {
+            this.SecondBase_Property1 = "SecondLevelObjectBase_Property1";
+            this.SecondBase_Property2 = "SecondLevelObjectBase_Property2";
+            this.SecondBase_Property3 = "SecondLevelObjectBase_Property3";
+        }
     }
 }

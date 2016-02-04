@@ -59,6 +59,7 @@
     <Compile Include="BizObjects\TypeA\TypeAObject1.cs" />
     <Compile Include="BizObjects\TypeB\TypeBSecondLevelObject.cs" />
     <Compile Include="BizObjects\TypeB\TypeBObject1.cs" />
+    <Compile Include="DAL.cs" />
     <Compile Include="DbEntities.cs" />
     <Compile Include="DbInitializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -15,10 +15,28 @@ namespace EFLab.DAL.BizObjects
 
         public int TopLevelObjectId { get; set; }
 
-        public string Property1 { get; set; }
-        public string Property2 { get; set; }
-        public string Property3 { get; set; }
+        public string TopLevel_Property1 { get; set; }
+        public string TopLevel_Property2 { get; set; }
+        public string TopLevel_Property3 { get; set; }
 
         public virtual IList<SecondLevelObjectBase> SecondLevelObjects { get; set; }
+
+        public void PopulateTest()
+        {
+            this.TopLevel_Property1 = "TopLevel_Property1";
+            this.TopLevel_Property2 = "TopLevel_Property2";
+            this.TopLevel_Property3 = "TopLevel_Property3";
+
+            this.AddSecondLevelObject<EFLab.DAL.BizObjects.TypeA.TypeASecondLevelObject>();
+            this.AddSecondLevelObject<EFLab.DAL.BizObjects.TypeB.TypeBSecondLevelObject>();
+        }
+
+        public void AddSecondLevelObject<T>()
+            where T: SecondLevelObjectBase, new()
+        {
+            T newObject = new T();
+            newObject.PopulateTest();
+            this.SecondLevelObjects.Add(newObject);
+        }
     }
 }

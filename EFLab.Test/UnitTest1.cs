@@ -39,18 +39,22 @@ namespace EFLab.Test
                 IEnumerable<TypeBSecondLevelObject> typeBObjects = objects.OfType<TypeBSecondLevelObject>();
 
                 Assert.AreEqual(typeBObjects.Count(), 1);
-
-                //foreach (SecondLevelObjectBase o in objects)
-                //{
-                //    Debug.WriteLine(o.GetType());
-                //}
-
-                //TopLevelObject top2 =
-                //    (from p in context.TopLevelObject
-                //     where p.TopLevelObjectId == 1
-                //     select p)
-                //    .FirstOrDefault();
             }
+        }
+
+        [TestMethod]
+        public void TestMethod2()
+        {
+            EFLab.DAL.DAL dal = new EFLab.DAL.DAL();
+
+            IList<TypeASecondLevelObject> typeASecondObjs = dal.GetSecondLevelObject<TypeASecondLevelObject>(1, new string[] { "TypeAObject1s" });
+            Assert.AreEqual(1, typeASecondObjs.Count());
+            Assert.AreEqual(1, typeASecondObjs[0].TypeAObject1s.Count());
+
+            IList<TypeBSecondLevelObject> typeBSecondObjs = dal.GetSecondLevelObject<TypeBSecondLevelObject>(1, new string[] { "TypeBObject1s" });
+            Assert.AreEqual(1, typeBSecondObjs.Count());
+            Assert.AreEqual(1, typeBSecondObjs[0].TypeBObject1s.Count());
+
         }
     }
 }

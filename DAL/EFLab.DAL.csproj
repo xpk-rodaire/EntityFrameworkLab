@@ -62,6 +62,11 @@
     <Compile Include="DAL.cs" />
     <Compile Include="DbEntities.cs" />
     <Compile Include="DbInitializer.cs" />
+    <Compile Include="Migrations\201602091744348_InitializeDB.cs" />
+    <Compile Include="Migrations\201602091744348_InitializeDB.Designer.cs">
+      <DependentUpon>201602091744348_InitializeDB.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -70,6 +75,11 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Documentation\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201602091744348_InitializeDB.resx">
+      <DependentUpon>201602091744348_InitializeDB.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

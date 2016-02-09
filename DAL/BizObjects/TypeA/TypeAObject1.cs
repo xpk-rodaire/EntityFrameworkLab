@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
@@ -16,6 +17,7 @@ namespace EFLab.DAL.BizObjects.TypeA
 
         public int TypeAObject1Id { get; set; }
 
+        [MaxLength(200)]
         public string TypeAObject1_Property1 { get; set; }
         public string TypeAObject1_Property2 { get; set; }
         public string TypeAObject1_Property3 { get; set; }

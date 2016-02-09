@@ -21,7 +21,7 @@ namespace EFLab.DAL
         {
             this.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
 
-            Database.SetInitializer<DbEntities>(new DbInitializer());
+            //Database.SetInitializer<DbEntities>(new DbInitializer());
         }
 
         //protected override void OnModelCreating(DbModelBuilder modelBuilder)

@@ -30,7 +30,7 @@ namespace EFLab.DAL
         }
 
         public IList<T> GetSecondLevelObject<T>(int topLevelId, string[] includes)
-            where T:SecondLevelObjectBase
+            where T: SecondLevelObjectBase
         {
             using (DbEntities context = new DbEntities())
             {

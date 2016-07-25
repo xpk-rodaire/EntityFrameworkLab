@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace EFLab.DAL.BizObjects
 {
+    [Table("t_TopLevelObject", Schema = "Core")]
     public class TopLevelObject
     {
         public TopLevelObject()

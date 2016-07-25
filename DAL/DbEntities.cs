@@ -8,8 +8,6 @@ using System.Data.Entity.ModelConfiguration;
 using System.Reflection;
 
 using EFLab.DAL.BizObjects;
-using EFLab.DAL.BizObjects.TypeA;
-using EFLab.DAL.BizObjects.TypeB;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EFLab.DAL
@@ -24,29 +22,36 @@ namespace EFLab.DAL
             //Database.SetInitializer<DbEntities>(new DbInitializer());
         }
 
-        //protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        //{
-        //    modelBuilder.Entity<SecondLevelObjectBase>()
-        //        .Property(c => c.SecondLevelObjectBaseId)
-        //        .HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<SecondLevelObjectBase>().ToTable("t_SecondLevelObjectBase", "Core");
+            modelBuilder.Entity<EFLab.DAL.BizObjects.TypeA.TypeASecondLevelObject>().ToTable("t_TypeASecondLevel", "TypeA");
+            modelBuilder.Entity<EFLab.DAL.BizObjects.TypeB.TypeBSecondLevelObject>().ToTable("t_TypeBSecondLevel", "TypeB");
+            modelBuilder.Entity<EFLab.DAL.BizObjects.TypeC.TypeCSecondLevelObject>().ToTable("t_TypeCSecondLevel", "TypeC");
 
-        //    modelBuilder.Entity<TypeASecondLevelObject>().Map(m =>
-        //    {
-        //        m.MapInheritedProperties();
-        //        m.ToTable("t_SecondLevelObjectA", "TypeA");
-        //    });
+            //modelBuilder.Entity<SecondLevelObjectBase>()
+            //    .Property(c => c.SecondLevelObjectBaseId)
+            //    .HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
 
-        //    modelBuilder.Entity<TypeBSecondLevelObject>().Map(m =>
-        //    {
-        //        m.MapInheritedProperties();
-        //        m.ToTable("t_SecondLevelObjectB", "TypeB");
-        //    });
+            //modelBuilder.Entity<TypeASecondLevelObject>().Map(m =>
+            //{
+            //    m.MapInheritedProperties();
+            //    m.ToTable("t_SecondLevelObjectA", "TypeA");
+            //});
 
-        //    base.OnModelCreating(modelBuilder);
-        //}
+            //modelBuilder.Entity<TypeBSecondLevelObject>().Map(m =>
+            //{
+            //    m.MapInheritedProperties();
+            //    m.ToTable("t_SecondLevelObjectB", "TypeB");
+            //});
 
+            base.OnModelCreating(modelBuilder);
+        }
 
         public virtual DbSet<TopLevelObject> TopLevelObject { get; set; }
         public virtual DbSet<SecondLevelObjectBase> SecondLevelObject { get; set; }
+        public virtual DbSet<EFLab.DAL.BizObjects.TypeA.TypeASecondLevelObject> TypeASecondLevelObject { get; set; }
+        public virtual DbSet<EFLab.DAL.BizObjects.TypeB.TypeBSecondLevelObject> TypeBSecondLevelObject { get; set; }
+        public virtual DbSet<EFLab.DAL.BizObjects.TypeC.TypeCSecondLevelObject> TypeCSecondLevelObject { get; set; }
     }
 }

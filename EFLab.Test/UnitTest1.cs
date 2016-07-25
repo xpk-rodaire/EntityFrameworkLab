@@ -20,6 +20,7 @@ namespace EFLab.Test
             using (DbEntities context = new DbEntities())
             {
                 TopLevelObject top = new TopLevelObject();
+                top.PopulateTest();
                 context.TopLevelObject.Add(top);
                 context.SaveChanges();
 
@@ -27,7 +28,7 @@ namespace EFLab.Test
                     (from t in context.TopLevelObject
                      join s in context.SecondLevelObject
                      on t.TopLevelObjectId equals s.Parent.TopLevelObjectId
-                     where t.TopLevelObjectId == 1
+                     where t.TopLevelObjectId == top.TopLevelObjectId
                      select s).ToList();
 
                 Assert.AreEqual(objects.Count(), 2);

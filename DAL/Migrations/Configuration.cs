@@ -5,22 +5,28 @@ namespace DAL.Migrations
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    using EFLab.DAL.BizObjects;
-
     internal sealed class Configuration : DbMigrationsConfiguration<EFLab.DAL.DbEntities>
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = true;
-            AutomaticMigrationDataLossAllowed = true;
+            AutomaticMigrationsEnabled = false;
+            ContextKey = "EFLab.DAL.DbEntities";
         }
 
         protected override void Seed(EFLab.DAL.DbEntities context)
         {
-            TopLevelObject top = new TopLevelObject();
-            top.PopulateTest();
+            //  This method will be called after migrating to the latest version.
 
-            context.TopLevelObject.Add(top);
+            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
+            //  to avoid creating duplicate seed data. E.g.
+            //
+            //    context.People.AddOrUpdate(
+            //      p => p.FullName,
+            //      new Person { FullName = "Andrew Peters" },
+            //      new Person { FullName = "Brice Lambson" },
+            //      new Person { FullName = "Rowan Miller" }
+            //    );
+            //
         }
     }
 }

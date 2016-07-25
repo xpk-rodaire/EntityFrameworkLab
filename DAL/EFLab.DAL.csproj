@@ -59,12 +59,18 @@
     <Compile Include="BizObjects\TypeA\TypeAObject1.cs" />
     <Compile Include="BizObjects\TypeB\TypeBSecondLevelObject.cs" />
     <Compile Include="BizObjects\TypeB\TypeBObject1.cs" />
+    <Compile Include="BizObjects\TypeC\TypeCObject1.cs" />
+    <Compile Include="BizObjects\TypeC\TypeCSecondLevelObject.cs" />
     <Compile Include="DAL.cs" />
     <Compile Include="DbEntities.cs" />
     <Compile Include="DbInitializer.cs" />
-    <Compile Include="Migrations\201602091744348_InitializeDB.cs" />
-    <Compile Include="Migrations\201602091744348_InitializeDB.Designer.cs">
-      <DependentUpon>201602091744348_InitializeDB.cs</DependentUpon>
+    <Compile Include="Migrations\201607252223151_InitialCreate.cs" />
+    <Compile Include="Migrations\201607252223151_InitialCreate.Designer.cs">
+      <DependentUpon>201607252223151_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201607252236374_AddTypeC.cs" />
+    <Compile Include="Migrations\201607252236374_AddTypeC.Designer.cs">
+      <DependentUpon>201607252236374_AddTypeC.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -74,11 +80,14 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Documentation\" />
+    <Content Include="Documentation\ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201602091744348_InitializeDB.resx">
-      <DependentUpon>201602091744348_InitializeDB.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201607252223151_InitialCreate.resx">
+      <DependentUpon>201607252223151_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607252236374_AddTypeC.resx">
+      <DependentUpon>201607252236374_AddTypeC.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

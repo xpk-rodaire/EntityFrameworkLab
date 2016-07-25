@@ -16,10 +16,10 @@ namespace EFLab.DAL
     {
         protected override void Seed(DbEntities context)
         {
-            TopLevelObject top = new TopLevelObject();
-            top.PopulateTest();
+            //TopLevelObject top = new TopLevelObject();
+            //top.PopulateTest();
 
-            context.TopLevelObject.Add(top);
+            //context.TopLevelObject.Add(top);
 
             base.Seed(context);
         }

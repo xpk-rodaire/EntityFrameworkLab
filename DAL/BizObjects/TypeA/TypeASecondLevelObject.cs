@@ -11,9 +11,8 @@ namespace EFLab.DAL.BizObjects.TypeA
         public TypeASecondLevelObject()
         {
             this.TypeAObject1s = new List<TypeAObject1>();
+            this.Identifier = "TypeA";
         }
-
-        public int SecondLevelObjectId { get; set; }
 
         public string TypeASecond_Property4 { get; set; }
         public string TypeASecond_Property5 { get; set; }

@@ -13,7 +13,7 @@ namespace EFLab.DAL
     public class DAL
     {
         public IList<T> GetSecondLevelObject<T>(int topLevelId)
-            where T:SecondLevelObjectBase
+            where T : SecondLevelObjectBase
         {
             using (DbEntities context = new DbEntities())
             {
@@ -30,11 +30,11 @@ namespace EFLab.DAL
         }
 
         public IList<T> GetSecondLevelObject<T>(int topLevelId, string[] includes)
-            where T: SecondLevelObjectBase
+            where T : SecondLevelObjectBase
         {
             using (DbEntities context = new DbEntities())
             {
-                var query = 
+                var query =
                     (from t in context.TopLevelObject
                      join s in context.SecondLevelObject.OfType<T>()
                      on t.TopLevelObjectId equals s.Parent.TopLevelObjectId
@@ -50,6 +50,11 @@ namespace EFLab.DAL
                     .Where(t => t.Parent.TopLevelObjectId.Equals(topLevelId))
                     .ToList();
             }
-        }          
+        }
+
+        public IList<EFLab.DAL.BizObjects.TypeB.TypeBSecondLevelObject> GetTypeBSecondLevelObject(int topLevelId)
+        {
+            return GetSecondLevelObject<EFLab.DAL.BizObjects.TypeB.TypeBSecondLevelObject>(topLevelId);
+        }   
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,10 +16,14 @@ namespace EFLab.DAL.BizObjects
 
         public int SecondLevelObjectBaseId { get; set; }
 
+        [MaxLength(10)]
+        public string Identifier { get; set; } 
+
         [MaxLength(200)]
         public string SecondBase_Property1 { get; set; }
         [MaxLength(200)]
         public string SecondBase_Property2 { get; set; }
+        [MaxLength(200)]
         public string SecondBase_Property3 { get; set; }
 
         public TopLevelObject Parent { get; set; }

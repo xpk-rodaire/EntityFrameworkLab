@@ -59,18 +59,30 @@
     <Compile Include="BizObjects\TypeA\TypeAObject1.cs" />
     <Compile Include="BizObjects\TypeB\TypeBSecondLevelObject.cs" />
     <Compile Include="BizObjects\TypeB\TypeBObject1.cs" />
-    <Compile Include="BizObjects\TypeC\TypeCObject1.cs" />
-    <Compile Include="BizObjects\TypeC\TypeCSecondLevelObject.cs" />
+    <Compile Include="BizObjects\TypeC\TypeCObject1.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="BizObjects\TypeC\TypeCSecondLevelObject.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="DAL.cs" />
     <Compile Include="DbEntities.cs" />
     <Compile Include="DbInitializer.cs" />
-    <Compile Include="Migrations\201607252223151_InitialCreate.cs" />
-    <Compile Include="Migrations\201607252223151_InitialCreate.Designer.cs">
-      <DependentUpon>201607252223151_InitialCreate.cs</DependentUpon>
+    <Compile Include="Migrations\201609201701349_Initialize.cs" />
+    <Compile Include="Migrations\201609201701349_Initialize.Designer.cs">
+      <DependentUpon>201609201701349_Initialize.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201607252236374_AddTypeC.cs" />
-    <Compile Include="Migrations\201607252236374_AddTypeC.Designer.cs">
-      <DependentUpon>201607252236374_AddTypeC.cs</DependentUpon>
+    <Compile Include="Migrations\201609201713152_RemoveCObjects.cs" />
+    <Compile Include="Migrations\201609201713152_RemoveCObjects.Designer.cs">
+      <DependentUpon>201609201713152_RemoveCObjects.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201609201740215_AddCObjects.cs" />
+    <Compile Include="Migrations\201609201740215_AddCObjects.Designer.cs">
+      <DependentUpon>201609201740215_AddCObjects.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201609202044150_TypeCTableMods.cs" />
+    <Compile Include="Migrations\201609202044150_TypeCTableMods.Designer.cs">
+      <DependentUpon>201609202044150_TypeCTableMods.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -80,16 +92,24 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Documentation\EF Update Migration.txt" />
     <Content Include="Documentation\ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201607252223151_InitialCreate.resx">
-      <DependentUpon>201607252223151_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201609201701349_Initialize.resx">
+      <DependentUpon>201609201701349_Initialize.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201607252236374_AddTypeC.resx">
-      <DependentUpon>201607252236374_AddTypeC.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201609201713152_RemoveCObjects.resx">
+      <DependentUpon>201609201713152_RemoveCObjects.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609201740215_AddCObjects.resx">
+      <DependentUpon>201609201740215_AddCObjects.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609202044150_TypeCTableMods.resx">
+      <DependentUpon>201609202044150_TypeCTableMods.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

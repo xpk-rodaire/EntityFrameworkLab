@@ -3,7 +3,7 @@ namespace DAL.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class InitialCreate : DbMigration
+    public partial class Initialize : DbMigration
     {
         public override void Up()
         {
@@ -62,6 +62,20 @@ namespace DAL.Migrations
                 .Index(t => t.TypeBSecondLevelObject_SecondLevelObjectBaseId);
             
             CreateTable(
+                "TypeC.t_Object1",
+                c => new
+                    {
+                        TypeCObject1Id = c.Int(nullable: false, identity: true),
+                        TypeCObject1_Property1 = c.String(),
+                        TypeCObject1_Property2 = c.String(),
+                        TypeCObject1_Property3 = c.String(),
+                        TypeCSecondLevelObject_SecondLevelObjectBaseId = c.Int(),
+                    })
+                .PrimaryKey(t => t.TypeCObject1Id)
+                .ForeignKey("TypeC.t_TypeCSecondLevel", t => t.TypeCSecondLevelObject_SecondLevelObjectBaseId)
+                .Index(t => t.TypeCSecondLevelObject_SecondLevelObjectBaseId);
+            
+            CreateTable(
                 "TypeA.t_TypeASecondLevel",
                 c => new
                     {
@@ -87,22 +101,41 @@ namespace DAL.Migrations
                 .ForeignKey("Core.t_SecondLevelObjectBase", t => t.SecondLevelObjectBaseId)
                 .Index(t => t.SecondLevelObjectBaseId);
             
+            CreateTable(
+                "TypeC.t_TypeCSecondLevel",
+                c => new
+                    {
+                        SecondLevelObjectBaseId = c.Int(nullable: false),
+                        TypeCSecond_Property4 = c.String(),
+                        TypeCSecond_Property5 = c.String(),
+                        TypeCSecond_Property6 = c.String(),
+                    })
+                .PrimaryKey(t => t.SecondLevelObjectBaseId)
+                .ForeignKey("Core.t_SecondLevelObjectBase", t => t.SecondLevelObjectBaseId)
+                .Index(t => t.SecondLevelObjectBaseId);
+            
         }
         
         public override void Down()
         {
+            DropForeignKey("TypeC.t_TypeCSecondLevel", "SecondLevelObjectBaseId", "Core.t_SecondLevelObjectBase");
             DropForeignKey("TypeB.t_TypeBSecondLevel", "SecondLevelObjectBaseId", "Core.t_SecondLevelObjectBase");
             DropForeignKey("TypeA.t_TypeASecondLevel", "SecondLevelObjectBaseId", "Core.t_SecondLevelObjectBase");
+            DropForeignKey("TypeC.t_Object1", "TypeCSecondLevelObject_SecondLevelObjectBaseId", "TypeC.t_TypeCSecondLevel");
             DropForeignKey("TypeB.t_Object1", "TypeBSecondLevelObject_SecondLevelObjectBaseId", "TypeB.t_TypeBSecondLevel");
             DropForeignKey("TypeA.t_Object1", "TypeASecondLevelObject_SecondLevelObjectBaseId", "TypeA.t_TypeASecondLevel");
             DropForeignKey("Core.t_SecondLevelObjectBase", "Parent_TopLevelObjectId", "Core.t_TopLevelObject");
+            DropIndex("TypeC.t_TypeCSecondLevel", new[] { "SecondLevelObjectBaseId" });
             DropIndex("TypeB.t_TypeBSecondLevel", new[] { "SecondLevelObjectBaseId" });
             DropIndex("TypeA.t_TypeASecondLevel", new[] { "SecondLevelObjectBaseId" });
+            DropIndex("TypeC.t_Object1", new[] { "TypeCSecondLevelObject_SecondLevelObjectBaseId" });
             DropIndex("TypeB.t_Object1", new[] { "TypeBSecondLevelObject_SecondLevelObjectBaseId" });
             DropIndex("TypeA.t_Object1", new[] { "TypeASecondLevelObject_SecondLevelObjectBaseId" });
             DropIndex("Core.t_SecondLevelObjectBase", new[] { "Parent_TopLevelObjectId" });
+            DropTable("TypeC.t_TypeCSecondLevel");
             DropTable("TypeB.t_TypeBSecondLevel");
             DropTable("TypeA.t_TypeASecondLevel");
+            DropTable("TypeC.t_Object1");
             DropTable("TypeB.t_Object1");
             DropTable("TypeA.t_Object1");
             DropTable("Core.t_TopLevelObject");

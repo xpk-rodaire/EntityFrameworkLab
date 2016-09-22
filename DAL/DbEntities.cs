@@ -24,10 +24,10 @@ namespace EFLab.DAL
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<SecondLevelObjectBase>().ToTable("t_SecondLevelObjectBase", "Core");
-            modelBuilder.Entity<EFLab.DAL.BizObjects.TypeA.TypeASecondLevelObject>().ToTable("t_TypeASecondLevel", "TypeA");
-            modelBuilder.Entity<EFLab.DAL.BizObjects.TypeB.TypeBSecondLevelObject>().ToTable("t_TypeBSecondLevel", "TypeB");
-            modelBuilder.Entity<EFLab.DAL.BizObjects.TypeC.TypeCSecondLevelObject>().ToTable("t_TypeCSecondLevel", "TypeC");
+            //modelBuilder.Entity<SecondLevelObjectBase>().ToTable("t_SecondLevelObjectBase", "Core");
+            //modelBuilder.Entity<EFLab.DAL.BizObjects.TypeA.TypeASecondLevelObject>().ToTable("t_TypeASecondLevel", "TypeA");
+            //modelBuilder.Entity<EFLab.DAL.BizObjects.TypeB.TypeBSecondLevelObject>().ToTable("t_TypeBSecondLevel", "TypeB");
+            //modelBuilder.Entity<EFLab.DAL.BizObjects.TypeC.TypeCSecondLevelObject>().ToTable("t_TypeCSecondLevel", "TypeC");
 
             //modelBuilder.Entity<SecondLevelObjectBase>()
             //    .Property(c => c.SecondLevelObjectBaseId)

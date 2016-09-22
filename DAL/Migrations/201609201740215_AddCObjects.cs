@@ -3,7 +3,7 @@ namespace DAL.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class AddTypeC : DbMigration
+    public partial class AddCObjects : DbMigration
     {
         public override void Up()
         {

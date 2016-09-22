@@ -10,7 +10,6 @@ namespace DAL.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
-            ContextKey = "EFLab.DAL.DbEntities";
         }
 
         protected override void Seed(EFLab.DAL.DbEntities context)

@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace EFLab.DAL.BizObjects
 {
+    [Table("t_SecondLevelObjectBase", Schema = "Core")]
     public abstract class SecondLevelObjectBase
     {
         public SecondLevelObjectBase()

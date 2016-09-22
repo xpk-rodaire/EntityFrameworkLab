@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace EFLab.DAL.BizObjects.TypeA
 {
+    [Table("t_TypeASecondLevel", Schema = "TypeA")]
     public class TypeASecondLevelObject : EFLab.DAL.BizObjects.SecondLevelObjectBase
     {
         public TypeASecondLevelObject()

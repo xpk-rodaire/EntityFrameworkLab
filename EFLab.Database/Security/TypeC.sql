@@ -1,0 +1,3 @@
+﻿CREATE SCHEMA [TypeC]
+    AUTHORIZATION [dbo];
+

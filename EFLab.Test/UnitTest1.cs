@@ -2,12 +2,15 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Data.Entity;
 using EFLab.DAL;
-using EFLab.DAL.BizObjects;
-using EFLab.DAL.BizObjects.TypeA;
-using EFLab.DAL.BizObjects.TypeB;
 using System.Linq;
 using System.Collections.Generic;
 using System.Diagnostics;
+
+using EFLab.DAL.BizObjects;
+using EFLab.DAL.BizObjects.TypeA;
+using EFLab.DAL.BizObjects.TypeB;
+using EFLab.DAL.BizObjects.TypeC;
+
 
 namespace EFLab.Test
 {
@@ -31,15 +34,11 @@ namespace EFLab.Test
                      where t.TopLevelObjectId == top.TopLevelObjectId
                      select s).ToList();
 
-                Assert.AreEqual(objects.Count(), 2);
+                Assert.AreEqual(objects.Count(), 3);
 
-                IEnumerable<TypeASecondLevelObject> typeAObjects = objects.OfType<TypeASecondLevelObject>();
-
-                Assert.AreEqual(typeAObjects.Count(), 1);
-
-                IEnumerable<TypeBSecondLevelObject> typeBObjects = objects.OfType<TypeBSecondLevelObject>();
-
-                Assert.AreEqual(typeBObjects.Count(), 1);
+                Assert.AreEqual(objects.OfType<TypeASecondLevelObject>().Count(), 1);
+                Assert.AreEqual(objects.OfType<TypeBSecondLevelObject>().Count(), 1);
+                Assert.AreEqual(objects.OfType<TypeCSecondLevelObject>().Count(), 1);
             }
         }
 
@@ -56,6 +55,8 @@ namespace EFLab.Test
             Assert.AreEqual(1, typeBSecondObjs.Count());
             Assert.AreEqual(1, typeBSecondObjs[0].TypeBObject1s.Count());
 
+            IList<SecondLevelObjectBase> secondObjs = dal.GetSecondLevelObject(1);
+            Assert.AreEqual(2, secondObjs.Count());
         }
     }
 }

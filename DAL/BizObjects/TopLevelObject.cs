@@ -31,6 +31,7 @@ namespace EFLab.DAL.BizObjects
 
             this.AddSecondLevelObject<EFLab.DAL.BizObjects.TypeA.TypeASecondLevelObject>();
             this.AddSecondLevelObject<EFLab.DAL.BizObjects.TypeB.TypeBSecondLevelObject>();
+            this.AddSecondLevelObject<EFLab.DAL.BizObjects.TypeC.TypeCSecondLevelObject>();
         }
 
         public void AddSecondLevelObject<T>()

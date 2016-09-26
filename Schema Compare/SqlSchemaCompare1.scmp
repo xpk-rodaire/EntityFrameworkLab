@@ -2,15 +2,16 @@
 <SchemaComparison>
   <Version>10</Version>
   <SourceModelProvider>
-    <ProjectBasedModelProvider>
-      <ProjectGuid>{748f9044-81a8-4d38-9c64-4eacd0a964d2}</ProjectGuid>
-      <Name>EFLab.Database</Name>
-    </ProjectBasedModelProvider>
-  </SourceModelProvider>
-  <TargetModelProvider>
     <ConnectionBasedModelProvider>
       <ConnectionString>Data Source=ISD40581\SQL2012;Initial Catalog=EFLab;Integrated Security=True;Pooling=False</ConnectionString>
     </ConnectionBasedModelProvider>
+  </SourceModelProvider>
+  <TargetModelProvider>
+    <FileBasedModelProvider>
+      <Name>
+      </Name>
+      <DatabaseFileName>C:\Data\Git\EntityFrameworkLab\EFLab.Database\bin\Debug\EFLab.Database.dacpac</DatabaseFileName>
+    </FileBasedModelProvider>
   </TargetModelProvider>
   <SchemaCompareSettingsService>
     <SchemaCompareSettingsService>
@@ -290,11 +291,11 @@
       </PropertyElementName>
       <PropertyElementName>
         <Name>TargetDatabaseName</Name>
-        <Value>EFLab</Value>
+        <Value>EFLab.Database</Value>
       </PropertyElementName>
       <PropertyElementName>
         <Name>TargetConnectionString</Name>
-        <Value>Data Source=ISD40581\SQL2012;Initial Catalog=EFLab;Integrated Security=True;Pooling=False;MultipleActiveResultSets=False;Application Name="Microsoft SQL Server Data Tools, Schema Compare"</Value>
+        <Value>Integrated Security=True;Pooling=False;Connect Timeout=30</Value>
       </PropertyElementName>
       <PropertyElementName>
         <Name>TreatVerificationErrorsAsWarnings</Name>
@@ -409,6 +410,6 @@
   <SchemaCompareViewSettings>
     <GroupBy>2</GroupBy>
     <ZoomLevel>100</ZoomLevel>
-    <Filter>Not_Supported_Deploy</Filter>
+    <Filter>Equals_Objects,Not_Supported_Deploy</Filter>
   </SchemaCompareViewSettings>
 </SchemaComparison>

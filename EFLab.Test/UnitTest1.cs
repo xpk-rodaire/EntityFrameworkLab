@@ -56,7 +56,13 @@ namespace EFLab.Test
             Assert.AreEqual(1, typeBSecondObjs[0].TypeBObject1s.Count());
 
             IList<SecondLevelObjectBase> secondObjs = dal.GetSecondLevelObject(1);
-            Assert.AreEqual(2, secondObjs.Count());
+            Assert.AreEqual(3, secondObjs.Count());
+
+            //Assert.AreEqual(1, dal.GetSecondLevelObject(1, CustomType.TypeA).Count());
+            //Assert.AreEqual(1, dal.GetSecondLevelObject(1, CustomType.TypeB).Count());
+            //Assert.AreEqual(1, dal.GetSecondLevelObject(1, CustomType.TypeC).Count());
+
+            Assert.AreEqual(1, dal.GetSecondLevelObject(1).Count());
         }
     }
 }

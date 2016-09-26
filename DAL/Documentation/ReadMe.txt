@@ -35,5 +35,82 @@ EFLab.DAL
 8) Generate SQL script
 
 
+Biz Objects - divide by namespace (Transmission, TransmissionSet, etc.)
+DBSets - 
+Database
+DAL
+
+DbSet set = context.Set(
+    typeof( MyEntity )
+);
+
+[BizObjectType("Transmission")]
+[TaxYear("2015")]
+
+public List<> GetTransmissions(string taxYear)
+{
+    using (DbEntities context = new DbEntities())
+    {
+
+	    context.SecondLevelObject.OfType<T>()
+
+        IList<T> objects =
+            (from t in context.TopLevelObject
+                join s in context.SecondLevelObject.OfType<T>()
+                on t.TopLevelObjectId equals s.Parent.TopLevelObjectId
+                where t.TopLevelObjectId == topLevelId
+                select s)
+                .ToList();
+
+        return objects;
+    }
+}
 
 
+DBContext per tax year
+DAL will choose DBContext based on year!
+
+namespace System.Data.Entity
+{
+  public static class EntityFrameworkExtensions
+  {
+    public static IEnumerable<object> AsEnumerable(this DbSet set)
+    {
+      foreach (var entity in set)
+        yield return entity;
+    }
+  }
+}
+
+DbContext has a method called Set, that you can use to get a non-generic DbSet, such as:
+
+var someDbSet = this.Set(typeof(SomeEntity));
+So in your case:
+
+foreach (BaseEntity entity in list)
+{
+      cntx.Set(entity.GetType()).Add(entity);         
+}
+
+https://aleemkhan.wordpress.com/2013/02/28/dynamically-adding-dbset-properties-in-dbcontext-for-entity-framework-code-first/
+
+protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            CustomAssemblySection configSection = (CustomAssemblySection)System.Configuration.ConfigurationManager.GetSection("CustomAssemblySection");
+ 
+
+            foreach (CustomAssembly customAssembly in configSection.Assemblies)
+            {
+                Assembly assembly = Assembly.Load(customAssembly.Name);
+                foreach (Type type in assembly.ExportedTypes)
+                {
+                    if (type.IsClass)
+                    {
+                        MethodInfo method = modelBuilder.GetType().GetMethod("Entity");
+                        method = method.MakeGenericMethod(new Type[] { type });
+                        method.Invoke(modelBuilder, null);
+                    }
+                }
+            }
+            base.OnModelCreating(modelBuilder);
+        }

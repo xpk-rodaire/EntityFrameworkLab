@@ -4,9 +4,12 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using EFLab.DAL;
 
 namespace EFLab.DAL.BizObjects.TypeB
 {
+    [CustomType(Value = CustomType.TypeA)]
+    [SecondLevelObject]
     [Table("t_TypeBSecondLevel", Schema = "TypeB")]
     public class TypeBSecondLevelObject : EFLab.DAL.BizObjects.SecondLevelObjectBase
     {

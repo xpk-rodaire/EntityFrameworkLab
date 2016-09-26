@@ -53,6 +53,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Attribute.cs" />
     <Compile Include="BizObjects\TypeA\TypeASecondLevelObject.cs" />
     <Compile Include="BizObjects\SecondLevelObjectBase.cs" />
     <Compile Include="BizObjects\TopLevelObject.cs" />

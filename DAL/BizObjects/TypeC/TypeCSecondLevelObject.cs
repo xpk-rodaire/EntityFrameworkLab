@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 
 namespace EFLab.DAL.BizObjects.TypeC
 {
+    [CustomType(Value = CustomType.TypeC)]
+    [SecondLevelObject]
     [Table("t_TypeCSecondLevel2", Schema = "TypeC2")]
     public class TypeCSecondLevelObject : EFLab.DAL.BizObjects.SecondLevelObjectBase
     {

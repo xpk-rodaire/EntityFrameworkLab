@@ -8,8 +8,7 @@ using EFLab.DAL;
 
 namespace EFLab.DAL.BizObjects.TypeB
 {
-    [CustomType(Value = CustomType.TypeA)]
-    [SecondLevelObject]
+    [SecondLevelObject(Value = SecondLevelObjectType.TypeB)]
     [Table("t_TypeBSecondLevel", Schema = "TypeB")]
     public class TypeBSecondLevelObject : EFLab.DAL.BizObjects.SecondLevelObjectBase
     {

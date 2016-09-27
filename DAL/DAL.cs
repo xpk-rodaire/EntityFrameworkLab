@@ -67,7 +67,7 @@ namespace EFLab.DAL
             }
         }
 
-        public IList<EFLab.DAL.BizObjects.SecondLevelObjectBase> GetSecondLevelObject(int topLevelId, CustomType type)
+        public IList<EFLab.DAL.BizObjects.SecondLevelObjectBase> GetSecondLevelObject(int topLevelId, SecondLevelObjectType type)
         {
             using (DbEntities context = new DbEntities())
             {
@@ -76,11 +76,7 @@ namespace EFLab.DAL
                      join s in context.SecondLevelObject
                      on t.TopLevelObjectId equals s.Parent.TopLevelObjectId
 
-//var typesWithMyAttribute =
-//    from t in assembly.GetTypes()
-//    let attributes = t.GetCustomAttributes(typeof(HelpAttribute), true)
-//    where attributes != null && attributes.Length > 0
-//    select new { Type = t, Attributes = attributes.Cast<HelpAttribute>() };
+
 
                      where t.TopLevelObjectId.Equals(topLevelId)
                      && s.GetType().GetCustomAttributes(typeof(SecondLevelObjectAttribute), true) != null
@@ -90,15 +86,17 @@ namespace EFLab.DAL
             }
         }
 
-        //public IList<EFLab.DAL.BizObjects.TypeB.TypeBSecondLevelObject> GetTypeBSecondLevelObject()
-        //{
-        //    using (DbEntities context = new DbEntities())
-        //    {
-        //        return
-        //            (from t in context.GetSecondLevelObject()
-        //             select t)
-        //            .ToList();
-        //    }
-        //}   
+        public IList<EFLab.DAL.BizObjects.SecondLevelObjectBase> GetSecondLevelObject()
+        {
+            using (DbEntities context = new DbEntities())
+            {
+                DbSet<EFLab.DAL.BizObjects.SecondLevelObjectBase> set = context.GetSecondLevelObject();
+
+                return
+                    (from t in set
+                     select t)
+                    .ToList();
+            }
+        }   
     }
 }

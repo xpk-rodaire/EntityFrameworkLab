@@ -6,19 +6,16 @@ using System.Threading.Tasks;
 
 namespace EFLab.DAL
 {
-    public enum CustomType
+    public enum SecondLevelObjectType
     {
         TypeA,
         TypeB,
         TypeC
-    }
+    } 
 
+    [AttributeUsage(AttributeTargets.Class, AllowMultiple = false)]
     public class SecondLevelObjectAttribute : Attribute
     {
-    }
-
-    public class CustomTypeAttribute : Attribute
-    {
-        public CustomType Value { get; set; }
+        public SecondLevelObjectType Value { get; set; }
     }
 }

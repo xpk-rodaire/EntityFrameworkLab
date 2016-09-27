@@ -10,6 +10,7 @@ using EFLab.DAL.BizObjects;
 using EFLab.DAL.BizObjects.TypeA;
 using EFLab.DAL.BizObjects.TypeB;
 using EFLab.DAL.BizObjects.TypeC;
+using System.Reflection;
 
 
 namespace EFLab.Test
@@ -62,7 +63,29 @@ namespace EFLab.Test
             //Assert.AreEqual(1, dal.GetSecondLevelObject(1, CustomType.TypeB).Count());
             //Assert.AreEqual(1, dal.GetSecondLevelObject(1, CustomType.TypeC).Count());
 
-            Assert.AreEqual(1, dal.GetSecondLevelObject(1).Count());
+            Assert.AreEqual(3, dal.GetSecondLevelObject().Count());
+        }
+
+        [TestMethod]
+        public void TestCustomAttributes()
+        {
+            Assembly clientAssembly = Assembly.Load("DAL");
+
+            var typesWithMyAttribute =
+                (from t in clientAssembly.GetTypes()
+                 let attribute = t.GetCustomAttributes(typeof(SecondLevelObjectAttribute), true).FirstOrDefault()
+                 where attribute != null
+                 select new {
+                     Type = t,
+                     Attribute = (SecondLevelObjectAttribute)attribute,
+                     Value = ((SecondLevelObjectAttribute)attribute).Value
+                 }
+                 ).ToList();
+
+            foreach(var att in typesWithMyAttribute)
+            {
+                Debug.WriteLine(att);
+            }
         }
     }
 }

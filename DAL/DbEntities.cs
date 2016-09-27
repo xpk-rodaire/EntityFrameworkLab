@@ -53,15 +53,15 @@ namespace EFLab.DAL
             base.OnModelCreating(modelBuilder);
         }
 
-        //public virtual DbSet<TopLevelObject> TopLevelObject { get; set; }
+        public virtual DbSet<TopLevelObject> TopLevelObject { get; set; }
         public virtual DbSet<SecondLevelObjectBase> SecondLevelObject { get; set; }
         public virtual DbSet<EFLab.DAL.BizObjects.TypeA.TypeASecondLevelObject> TypeASecondLevelObject { get; set; }
         public virtual DbSet<EFLab.DAL.BizObjects.TypeB.TypeBSecondLevelObject> TypeBSecondLevelObject { get; set; }
         public virtual DbSet<EFLab.DAL.BizObjects.TypeC.TypeCSecondLevelObject> TypeCSecondLevelObject { get; set; }
 
-        public DbSet GetSecondLevelObject()
+        public virtual DbSet<SecondLevelObjectBase> GetSecondLevelObject()
         {
-            return this.Set(typeof(EFLab.DAL.BizObjects.TypeA.TypeASecondLevelObject));
+            return (DbSet<SecondLevelObjectBase>)this.Set<SecondLevelObjectBase>();
         }
     }
 }

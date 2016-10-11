@@ -30,6 +30,7 @@ namespace EFLab.DAL.BizObjects.TypeC
             var obj1 = new TypeCObject1();
             obj1.PopulateTest();
             this.TypeCObject1s.Add(obj1);
+            obj1.TypeCSecondLevelObject = this;
 
             this.TypeCSecond_Property4 = "TypeCSecond_Property4";
             this.TypeCSecond_Property5 = "TypeCSecond_Property5";

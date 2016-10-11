@@ -17,6 +17,9 @@ namespace EFLab.DAL.BizObjects.TypeA
 
         public int TypeAObject1Id { get; set; }
 
+        [Required]
+        public TypeASecondLevelObject TypeASecondLevelObject { get; set; }
+
         [MaxLength(200)]
         public string TypeAObject1_Property1 { get; set; }
         public string TypeAObject1_Property2 { get; set; }

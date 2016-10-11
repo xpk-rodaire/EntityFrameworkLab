@@ -31,6 +31,7 @@ namespace EFLab.DAL.BizObjects.TypeB
             var obj1 = new TypeBObject1();
             obj1.PopulateTest();
             this.TypeBObject1s.Add(obj1);
+            obj1.TypeBSecondLevelObject = this;
 
             this.TypeBSecond_Property4 = "TypeBSecond_Property4";
             this.TypeBSecond_Property5 = "TypeBSecond_Property5";

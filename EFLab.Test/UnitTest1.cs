@@ -11,6 +11,7 @@ using EFLab.DAL.BizObjects.TypeA;
 using EFLab.DAL.BizObjects.TypeB;
 using EFLab.DAL.BizObjects.TypeC;
 using System.Reflection;
+using System.Data.Entity.Validation;
 
 
 namespace EFLab.Test
@@ -26,6 +27,9 @@ namespace EFLab.Test
                 TopLevelObject top = new TopLevelObject();
                 top.PopulateTest();
                 context.TopLevelObject.Add(top);
+
+                IEnumerable<DbEntityValidationResult> errors = context.GetValidationErrors();
+
                 context.SaveChanges();
 
                 IEnumerable<SecondLevelObjectBase> objects =
@@ -69,7 +73,7 @@ namespace EFLab.Test
         [TestMethod]
         public void TestCustomAttributes()
         {
-            Assembly clientAssembly = Assembly.Load("DAL");
+            Assembly clientAssembly = Assembly.Load("DAL"); // NOT EFLab.DAL
 
             var typesWithMyAttribute =
                 (from t in clientAssembly.GetTypes()
@@ -86,6 +90,34 @@ namespace EFLab.Test
             {
                 Debug.WriteLine(att);
             }
+        }
+
+        [TestMethod]
+        public void TestDelete()
+        {
+            EFLab.DAL.DAL dal = new EFLab.DAL.DAL();
+            dal.DeleteSecondLevelObject(1);
+        }
+
+        [TestMethod]
+        public void TestGetTypeAObject1()
+        {
+            EFLab.DAL.DAL dal = new EFLab.DAL.DAL();
+            dal.GetTypeAObject1();
+        }
+
+        [TestMethod]
+        public void TestGetSecondLevelObject2()
+        {
+            EFLab.DAL.DAL dal = new EFLab.DAL.DAL();
+            IList<EFLab.DAL.BizObjects.SecondLevelObjectBase> objs = dal.GetSecondLevelObject2(1);
+        }
+
+        [TestMethod]
+        public void TestGetSecondLevelObject3()
+        {
+            EFLab.DAL.DAL dal = new EFLab.DAL.DAL();
+            IList<TypeASecondLevelObject> objs = dal.GetSecondLevelObject3<TypeASecondLevelObject>(1);
         }
     }
 }

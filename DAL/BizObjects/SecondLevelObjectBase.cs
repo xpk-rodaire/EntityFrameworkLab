@@ -27,6 +27,7 @@ namespace EFLab.DAL.BizObjects
         [MaxLength(200)]
         public string SecondBase_Property3 { get; set; }
 
+        [Required]
         public TopLevelObject Parent { get; set; }
 
         public virtual void PopulateTest()

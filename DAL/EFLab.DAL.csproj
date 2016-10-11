@@ -85,6 +85,14 @@
     <Compile Include="Migrations\201609202044150_TypeCTableMods.Designer.cs">
       <DependentUpon>201609202044150_TypeCTableMods.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201610052011350_MakeTopLevelObjectRequired.cs" />
+    <Compile Include="Migrations\201610052011350_MakeTopLevelObjectRequired.Designer.cs">
+      <DependentUpon>201610052011350_MakeTopLevelObjectRequired.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610052312230_AddRequiredParentToThirdLevelObjects.cs" />
+    <Compile Include="Migrations\201610052312230_AddRequiredParentToThirdLevelObjects.Designer.cs">
+      <DependentUpon>201610052312230_AddRequiredParentToThirdLevelObjects.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -108,6 +116,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201609202044150_TypeCTableMods.resx">
       <DependentUpon>201609202044150_TypeCTableMods.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610052011350_MakeTopLevelObjectRequired.resx">
+      <DependentUpon>201610052011350_MakeTopLevelObjectRequired.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610052312230_AddRequiredParentToThirdLevelObjects.resx">
+      <DependentUpon>201610052312230_AddRequiredParentToThirdLevelObjects.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />

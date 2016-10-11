@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
@@ -15,6 +16,9 @@ namespace EFLab.DAL.BizObjects.TypeB
         }
 
         public int TypeBObject1Id { get; set; }
+
+        [Required]
+        public TypeBSecondLevelObject TypeBSecondLevelObject { get; set; }
 
         public string TypeBObject1_Property1 { get; set; }
         public string TypeBObject1_Property2 { get; set; }

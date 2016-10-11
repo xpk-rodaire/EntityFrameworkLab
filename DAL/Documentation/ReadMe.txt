@@ -116,3 +116,18 @@ protected override void OnModelCreating(DbModelBuilder modelBuilder)
         }
 
 https://romiller.com/2012/03/26/dynamically-building-a-model-with-code-first/
+
+
+ObjectType AmountByMonthDetailType
+TaxYear    2015
+
+Put each TY in own namespace
+
+Put each TY in own database
+   Take some off-line for security?
+   How would security key work?
+
+Put all TY in same database, each TY in own DBContext
+   Have a separate DAL for each DBContext - lot of code duplication!
+   Have Transmission object for each TY?
+

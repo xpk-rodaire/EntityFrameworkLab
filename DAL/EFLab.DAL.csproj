@@ -68,6 +68,8 @@
     </Compile>
     <Compile Include="DAL.cs" />
     <Compile Include="DbEntities.cs" />
+    <Compile Include="DbEntitiesTypeB.cs" />
+    <Compile Include="DbEntitiesTypeA.cs" />
     <Compile Include="DbInitializer.cs" />
     <Compile Include="Migrations\201609201701349_Initialize.cs" />
     <Compile Include="Migrations\201609201701349_Initialize.Designer.cs">

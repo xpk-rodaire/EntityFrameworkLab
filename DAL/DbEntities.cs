@@ -65,8 +65,8 @@ namespace EFLab.DAL
             method.Invoke(modelBuilder, null);
 
             //this.AddDbSet(modelBuilder, typeof(EFLab.DAL.BizObjects.TypeA.TypeAObject1));
-            this.AddDbSet(modelBuilder, typeof(EFLab.DAL.BizObjects.TypeB.TypeBObject1));
-            this.AddDbSet(modelBuilder, typeof(EFLab.DAL.BizObjects.TypeC.TypeCObject1));
+            //this.AddDbSet(modelBuilder, typeof(EFLab.DAL.BizObjects.TypeB.TypeBObject1));
+            //this.AddDbSet(modelBuilder, typeof(EFLab.DAL.BizObjects.TypeC.TypeCObject1));
 
             //EntityTypeConfiguration<TopLevelObject> config = modelBuilder.Entity<TopLevelObject>();
 

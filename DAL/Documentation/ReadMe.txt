@@ -121,7 +121,7 @@ https://romiller.com/2012/03/26/dynamically-building-a-model-with-code-first/
 ObjectType AmountByMonthDetailType
 TaxYear    2015
 
-Put each TY in own namespace
+Put each TY in own namespace/database schema
 
 Put each TY in own database
    Take some off-line for security?
@@ -131,3 +131,7 @@ Put all TY in same database, each TY in own DBContext
    Have a separate DAL for each DBContext - lot of code duplication!
    Have Transmission object for each TY?
 
+public List<SCO.IRS.ACA.FormData.DAL.TY2015_06.Form1094CUpstreamDetailType>
+Transmission.Form1094CRecords  { get; set; }
+
+Need abstract/base class Form1094CUpstreamDetailType

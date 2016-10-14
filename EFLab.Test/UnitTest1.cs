@@ -119,5 +119,17 @@ namespace EFLab.Test
             EFLab.DAL.DAL dal = new EFLab.DAL.DAL();
             IList<TypeASecondLevelObject> objs = dal.GetSecondLevelObject3<TypeASecondLevelObject>(1);
         }
+
+        [TestMethod]
+        public void OutputDbSets()
+        {
+            EFLab.DAL.DAL dal = new EFLab.DAL.DAL();
+            List<PropertyInfo> info = dal.GetDbSetProperties();
+
+            foreach (PropertyInfo pi in info)
+            {
+                Debug.WriteLine(pi);
+            }
+        }
     }
 }

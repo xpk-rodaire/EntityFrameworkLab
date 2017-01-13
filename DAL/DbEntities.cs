@@ -60,15 +60,14 @@ namespace EFLab.DAL
              http://stackoverflow.com/questions/19644617/linq-multiple-join-iqueryable-modify-result-selector-expression
              
             */
-            MethodInfo method = modelBuilder.GetType().GetMethod("Entity");
-            method = method.MakeGenericMethod(new Type[] { typeof(EFLab.DAL.BizObjects.TypeA.TypeAObject1) });
-            method.Invoke(modelBuilder, null);
-
-            //this.AddDbSet(modelBuilder, typeof(EFLab.DAL.BizObjects.TypeA.TypeAObject1));
-            //this.AddDbSet(modelBuilder, typeof(EFLab.DAL.BizObjects.TypeB.TypeBObject1));
-            //this.AddDbSet(modelBuilder, typeof(EFLab.DAL.BizObjects.TypeC.TypeCObject1));
+            //MethodInfo method = modelBuilder.GetType().GetMethod("Entity");
+            //method = method.MakeGenericMethod(new Type[] { typeof(EFLab.DAL.BizObjects.TypeA.TypeAObject1) });
+            //EntityTypeConfiguration<EFLab.DAL.BizObjects.TypeA.TypeAObject1> config = (EntityTypeConfiguration<EFLab.DAL.BizObjects.TypeA.TypeAObject1>)method.Invoke(modelBuilder, null);
+            //config.HasEntitySetName("TypeAObject1");
 
             //EntityTypeConfiguration<TopLevelObject> config = modelBuilder.Entity<TopLevelObject>();
+
+            AddDbSet(modelBuilder, Type.GetType("EFLab.DAL.BizObjects.TopLevelObject,DAL"));
 
             base.OnModelCreating(modelBuilder);
         }
@@ -80,11 +79,11 @@ namespace EFLab.DAL
             method.Invoke(modelBuilder, null);
         }
 
-        public virtual DbSet<TopLevelObject> TopLevelObject { get; set; }
-        public virtual DbSet<SecondLevelObjectBase> SecondLevelObject { get; set; }
-        public virtual DbSet<EFLab.DAL.BizObjects.TypeA.TypeASecondLevelObject> TypeASecondLevelObject { get; set; }
-        public virtual DbSet<EFLab.DAL.BizObjects.TypeB.TypeBSecondLevelObject> TypeBSecondLevelObject { get; set; }
-        public virtual DbSet<EFLab.DAL.BizObjects.TypeC.TypeCSecondLevelObject> TypeCSecondLevelObject { get; set; }
+        //public virtual DbSet<TopLevelObject> TopLevelObject { get; set; }
+        //public virtual DbSet<SecondLevelObjectBase> SecondLevelObject { get; set; }
+        //public virtual DbSet<EFLab.DAL.BizObjects.TypeA.TypeASecondLevelObject> TypeASecondLevelObject { get; set; }
+        //public virtual DbSet<EFLab.DAL.BizObjects.TypeB.TypeBSecondLevelObject> TypeBSecondLevelObject { get; set; }
+        //public virtual DbSet<EFLab.DAL.BizObjects.TypeC.TypeCSecondLevelObject> TypeCSecondLevelObject { get; set; }
 
         public virtual DbSet<SecondLevelObjectBase> GetSecondLevelObject()
         {

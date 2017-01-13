@@ -26,20 +26,31 @@ namespace EFLab.Test
             {
                 TopLevelObject top = new TopLevelObject();
                 top.PopulateTest();
-                context.TopLevelObject.Add(top);
+                context.Set<EFLab.DAL.BizObjects.TopLevelObject>().Add(top);
 
                 IEnumerable<DbEntityValidationResult> errors = context.GetValidationErrors();
 
                 context.SaveChanges();
 
                 IEnumerable<SecondLevelObjectBase> objects =
-                    (from t in context.TopLevelObject
-                     join s in context.SecondLevelObject
+                    (from t in context.Set<EFLab.DAL.BizObjects.TopLevelObject>()
+                     join s in context.Set<EFLab.DAL.BizObjects.SecondLevelObjectBase>()
                      on t.TopLevelObjectId equals s.Parent.TopLevelObjectId
                      where t.TopLevelObjectId == top.TopLevelObjectId
                      select s).ToList();
 
                 Assert.AreEqual(objects.Count(), 3);
+
+                EFLab.DAL.BizObjects.TypeA.TypeAObject1 obj =
+                    (from t in context.Set<EFLab.DAL.BizObjects.TypeA.TypeAObject1>()
+                     select t).FirstOrDefault();
+                Assert.IsNotNull(obj);
+
+                EFLab.DAL.BizObjects.TypeA.TypeAObject1 obj2 =
+                    (from t in context.Set(Type.GetType("EFLab.DAL.BizObjects.TypeA.TypeAObject1,DAL")).Cast<EFLab.DAL.BizObjects.TypeA.TypeAObject1>()
+                     select t).FirstOrDefault();
+
+                Assert.IsNotNull(obj2);
 
                 Assert.AreEqual(objects.OfType<TypeASecondLevelObject>().Count(), 1);
                 Assert.AreEqual(objects.OfType<TypeBSecondLevelObject>().Count(), 1);

@@ -23,8 +23,8 @@ namespace EFLab.DAL
             using (DbEntities context = new DbEntities())
             {
                 IList<T> objects =
-                    (from t in context.TopLevelObject
-                     join s in context.SecondLevelObject.OfType<T>()
+                    (from t in context.Set<EFLab.DAL.BizObjects.TopLevelObject>()
+                     join s in context.Set<EFLab.DAL.BizObjects.SecondLevelObjectBase>().OfType<T>()
                      on t.TopLevelObjectId equals s.Parent.TopLevelObjectId
                      where t.TopLevelObjectId == topLevelId
                      //&& SqlFunctions.IsNumeric()
@@ -84,8 +84,8 @@ namespace EFLab.DAL
                 // http://stackoverflow.com/questions/26506619/linq-on-dbcontext-set
 
                 var query =
-                    (from t in context.TopLevelObject
-                     join s in context.SecondLevelObject.OfType<T>()
+                    (from t in context.Set<EFLab.DAL.BizObjects.TopLevelObject>()
+                     join s in context.Set<EFLab.DAL.BizObjects.SecondLevelObjectBase>().OfType<T>()
                      on t.TopLevelObjectId equals s.Parent.TopLevelObjectId
                      select s)
                      .AsQueryable();
@@ -106,8 +106,8 @@ namespace EFLab.DAL
             using (DbEntities context = new DbEntities())
             {
                 var query =
-                    (from t in context.TopLevelObject
-                     join s in context.SecondLevelObject
+                    (from t in context.Set<EFLab.DAL.BizObjects.TopLevelObject>()
+                     join s in context.Set<EFLab.DAL.BizObjects.SecondLevelObjectBase>()
                      on t.TopLevelObjectId equals s.Parent.TopLevelObjectId
                      select s)
                      .AsQueryable();
@@ -122,8 +122,8 @@ namespace EFLab.DAL
         {
             using (DbEntities context = new DbEntities())
             {
-                var obj = context.SecondLevelObject.Find(id);
-                context.SecondLevelObject.Remove(obj);
+                var obj = context.Set<EFLab.DAL.BizObjects.SecondLevelObjectBase>().Find(id);
+                context.Set<EFLab.DAL.BizObjects.SecondLevelObjectBase>().Remove(obj);
                 context.SaveChanges();
             }
         }
@@ -133,8 +133,8 @@ namespace EFLab.DAL
             using (DbEntities context = new DbEntities())
             {
                 return
-                    (from t in context.TopLevelObject
-                     join s in context.SecondLevelObject.OfType<EFLab.DAL.BizObjects.SecondLevelObjectBase>()
+                    (from t in context.Set<EFLab.DAL.BizObjects.TopLevelObject>()
+                     join s in context.Set<EFLab.DAL.BizObjects.SecondLevelObjectBase>().OfType<EFLab.DAL.BizObjects.SecondLevelObjectBase>()
                      on t.TopLevelObjectId equals s.Parent.TopLevelObjectId
 
                      where t.TopLevelObjectId.Equals(topLevelId)
@@ -191,13 +191,8 @@ namespace EFLab.DAL
                         dbSetProperties.Add(property);
                     }
                 }
-
                 return dbSetProperties;
-
             }
         }
-
-
-
     }
 }

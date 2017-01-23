@@ -25,12 +25,18 @@ ISD40581\SQL2012.EFLab
 EFLab.Database
 EFLab.DAL
 
+EF does not do data changes!!!
+
 1) Sync EFLab.DAL to ISD40581\SQL2012.EFLab
-2) Import ISD40581\SQL2012.EFLab to EFLab.Database
+2) Import ISD40581\SQL2012.EFLab into EFLab.Database
+	Cannot import database or DACPAC into non-empty database project
+	
 3) Make change to object(s) in EFLab.DAL
-4) Add-Migration
-5) Update-Database
+4) Add-Migration XXXX
+5) Update-Database XXXX
+	ISD40581\SQL2012.EFLab now contains latest changes
 6) Generate DACPAC file from EFLab.Database
+	Compile in DEBUG mode, DACPAC file created in \bin\Debug\ folder
 7) Schema compare EFLab.DAL and EFLab.Database DACPAC file
 8) Generate SQL script
 

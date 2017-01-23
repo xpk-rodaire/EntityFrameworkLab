@@ -17,6 +17,15 @@ namespace EFLab.DAL
 {
     public class DAL
     {
+
+        public T Test1<T>()
+            where T : string
+        {
+            string s = "";
+
+            return (T)s;
+        }
+
         public IList<T> GetSecondLevelObject<T>(int topLevelId)
             where T : EFLab.DAL.BizObjects.SecondLevelObjectBase
         {
@@ -128,7 +137,10 @@ namespace EFLab.DAL
             }
         }
 
-        public IList<EFLab.DAL.BizObjects.SecondLevelObjectBase> GetSecondLevelObject(int topLevelId, SecondLevelObjectType type)
+        public IList<EFLab.DAL.BizObjects.SecondLevelObjectBase> GetSecondLevelObject(
+            int topLevelId,
+            SecondLevelObjectType type
+        )
         {
             using (DbEntities context = new DbEntities())
             {

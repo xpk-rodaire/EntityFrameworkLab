@@ -103,7 +103,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Documentation\EF Update Migration.txt" />
     <Content Include="Documentation\ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>

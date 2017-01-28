@@ -17,15 +17,6 @@ namespace EFLab.DAL
 {
     public class DAL
     {
-
-        public T Test1<T>()
-            where T : string
-        {
-            string s = "";
-
-            return (T)s;
-        }
-
         public IList<T> GetSecondLevelObject<T>(int topLevelId)
             where T : EFLab.DAL.BizObjects.SecondLevelObjectBase
         {

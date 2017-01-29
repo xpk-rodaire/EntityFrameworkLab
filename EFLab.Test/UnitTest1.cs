@@ -231,7 +231,7 @@ namespace EFLab.Test
             public int Age3 { get; set; }
         }
 
-        enum Field
+        public enum Field
         {
             EnumField1,
             EnumField2,
@@ -244,177 +244,122 @@ namespace EFLab.Test
         [TestMethod]
         public void TestPropertyInfoHelper2()
         {
-            var values = (from field in Enum.GetValues(typeof(Field)).Cast<Field>()
-                          select new {Key = field, Value = field.ToString()})
-                          .ToDictionary(g => g.Key, g => g.Value);
+            //var values = (from field in Enum.GetValues(typeof(Field)).Cast<Field>()
+            //              select new {Key = field, Value = field.ToString()})
+            //              .ToDictionary(g => g.Key, g => g.Value);
 
-            var properties = new Dictionary<Field, IPropertyAccessor>();
+            //PropertyInfoEnumHelper<Field> helper = new PropertyInfoEnumHelper<Field>();
 
-            properties.Add(Field.EnumField1, CreatePropertyAccessor("EFLab.Test.UnitTest1+TestClass1", "Field1"));
-            properties.Add(Field.EnumField3, CreatePropertyAccessor("EFLab.Test.UnitTest1+TestClass1", "Field3"));
-            properties.Add(Field.EnumField5, CreatePropertyAccessor("EFLab.Test.UnitTest1+TestClass1", "Class1.FirstName"));
+            //Type t = Type.GetType("EFLab.Test.UnitTest1+TestClass1");
 
-            var obj = new TestClass1();
+            //helper.Add(Field.EnumField1, t, "Field1");
+            //helper.Add(Field.EnumField3, t, "Field3");
+            //helper.Add(Field.EnumField5, t, "Class1.FirstName");
 
-            foreach (KeyValuePair<Field, string> entry in values)
-            {
-                IPropertyAccessor accessor = properties[entry.Key];
-                if (accessor != null)
-                {
-                    Type pt = accessor.PropertyInfo.PropertyType;
-                    if (pt == typeof(string))
-                    {
-                        accessor.SetValue(obj, entry.Value);
-                    }
-                    else if (pt == typeof(int))
-                    {
-                        int parsedValue;
-                        bool parsed = int.TryParse(entry.Value, out parsedValue);
+            //var obj = new TestClass1();
 
-                        if (parsed)
-                        {
-                            accessor.SetValue(obj, parsedValue);
-                        }
-                        else
-                        {
-                            throw new Exception();
-                        }
-                    }
-                    else if (pt == typeof(bool))
-                    {
-                        bool parsedValue = (entry.Value.Equals("YES") || entry.Value.Equals("X"));
-                        accessor.SetValue(obj, parsedValue);
-                    }
-                    else if (pt == typeof(DateTime))
-                    {
-                        DateTime parsedValue;
-                        bool parsed = DateTime.TryParse(entry.Value, out parsedValue);
-                        accessor.SetValue(obj, parsedValue);
-                    }
-                    else if (pt == typeof(Decimal))
-                    {
-                        Decimal parsedValue;
-                        bool parsed = Decimal.TryParse(entry.Value, out parsedValue);
-                        accessor.SetValue(obj, parsedValue);
-                    }
-                    else
-                    {
-                        throw new ApplicationException("Invalid type: " + pt.ToString());
-                    }
-                }
-            }
+            //foreach (KeyValuePair<Field, string> entry in values)
+            //{
+            //    IPropertyAccessor accessor = properties[entry.Key];
+            //    if (accessor != null)
+            //    {
+            //        Type pt = accessor.PropertyInfo.PropertyType;
+            //        if (pt == typeof(string))
+            //        {
+            //            accessor.SetValue(obj, entry.Value);
+            //        }
+            //        else if (pt == typeof(int))
+            //        {
+            //            int parsedValue;
+            //            bool parsed = int.TryParse(entry.Value, out parsedValue);
+
+            //            if (parsed)
+            //            {
+            //                accessor.SetValue(obj, parsedValue);
+            //            }
+            //            else
+            //            {
+            //                throw new Exception();
+            //            }
+            //        }
+            //        else if (pt == typeof(bool))
+            //        {
+            //            bool parsedValue = (entry.Value.Equals("YES") || entry.Value.Equals("X"));
+            //            accessor.SetValue(obj, parsedValue);
+            //        }
+            //        else if (pt == typeof(DateTime))
+            //        {
+            //            DateTime parsedValue;
+            //            bool parsed = DateTime.TryParse(entry.Value, out parsedValue);
+            //            accessor.SetValue(obj, parsedValue);
+            //        }
+            //        else if (pt == typeof(Decimal))
+            //        {
+            //            Decimal parsedValue;
+            //            bool parsed = Decimal.TryParse(entry.Value, out parsedValue);
+            //            accessor.SetValue(obj, parsedValue);
+            //        }
+            //        else
+            //        {
+            //            throw new ApplicationException("Invalid type: " + pt.ToString());
+            //        }
+            //    }
+            //}
         }
 
         [TestMethod]
-        public void TestPropertyInfoHelper3()
+        public void TestPropertyInfoHelper4()
         {
-            //var properties = new Dictionary<Field, List<IPropertyAccessor>>();
+            PropertyInfoEnumHelper<Field> helper = new PropertyInfoEnumHelper<Field>();
 
-            //Test1();
-            Test2();
-            //Test3();
-        }
+            Type t = Type.GetType("EFLab.Test.UnitTest1+TestClass1");
 
-        private void Test1()
-        {
-            var accessors = CreatePropertyAccessors("EFLab.Test.UnitTest1+TestClass1", "Field1");
+            helper.Add(Field.EnumField1, t, "Field1");
+            helper.Add(Field.EnumField2, t, "Class2.Class3.FirstName3");
+            helper.Add(Field.EnumField3, t, "Class2.Class3.Age3");
+        
             TestClass1 tc1 = new TestClass1();
 
-            object result = GetValue(tc1, accessors);
-            Assert.AreEqual(result, 1234);
+            //TestGetSet(helper, tc1, 1234, 12345, Field.EnumField1);
+            //TestGetSet(helper, tc1, "FirstName3", "NewFirstName", Field.EnumField2);
+            //TestGetSet(helper, tc1, 456, 4568, Field.EnumField3);
 
-            SetValue(tc1, 12345, accessors);
+            var values = new Dictionary<Field, string>();
+            values.Add(Field.EnumField1, "472598");
+            values.Add(Field.EnumField2, "Steve was here");
+            values.Add(Field.EnumField3, "99837");
 
-            result = GetValue(tc1, accessors);
-            Assert.AreEqual(result, 12345);
+            TestGetSet2(helper, tc1, values, Field.EnumField1);
+            TestGetSet2(helper, tc1, values, Field.EnumField2);
+            TestGetSet2(helper, tc1, values, Field.EnumField3);
         }
 
-        private void Test2()
+        private void TestGetSet2(
+            PropertyInfoEnumHelper<Field> helper,
+            object obj,
+            Dictionary<Field, string> values,
+            Field field)
         {
-            var accessors = CreatePropertyAccessors("EFLab.Test.UnitTest1+TestClass1", "Class2.Class3.FirstName3");
-            TestClass1 tc1 = new TestClass1();
-
-            object result = GetValue(tc1, accessors);
-            Assert.AreEqual(result, "FirstName3");
-
-            SetValue(tc1, "NewFirstName", accessors);
-
-            result = GetValue(tc1, accessors);
-            Assert.AreEqual(result, "NewFirstName");
+            // Copy value from values into obj
+            helper.SetValue(obj, field, values);
+            // Verify value in obj matches
+            Assert.AreEqual(values[field], helper.GetValue(obj, field).ToString());
         }
 
-        private void Test3()
+        private void TestGetSet(
+            PropertyInfoEnumHelper<Field> helper,
+            object obj,
+            object value,
+            object newValue,
+            Field field)
         {
-            var accessors = CreatePropertyAccessors("EFLab.Test.UnitTest1+TestClass1", "Class2.Class3.Age3");
-            TestClass1 tc1 = new TestClass1();
+            object result = helper.GetValue(obj, field);
+            Assert.AreEqual(result, value);
 
-            object result = GetValue(tc1, accessors);
-            Assert.AreEqual(result, 456);
+            helper.SetValue(obj, newValue, field);
 
-            SetValue(tc1, 4568, accessors);
-
-            result = GetValue(tc1, accessors);
-            Assert.AreEqual(result, 4568);
-        }
-
-        public List<IPropertyAccessor> CreatePropertyAccessors(string objectName, string propertyName)
-        {
-            var accessors = new List<IPropertyAccessor>();
-
-            Type parentType = Type.GetType(objectName);
-
-            foreach(string property in propertyName.Split('.'))
-            {
-                PropertyInfo propertyInfo = parentType.GetProperty(property);
-                accessors.Add(PropertyInfoHelper.CreateAccessor(propertyInfo));
-                parentType = propertyInfo.PropertyType;
-            }
-
-            return accessors;
-        }
-
-        public object GetValue(object source, List<IPropertyAccessor> accessors)
-        {
-            object result = source;
-            foreach (IPropertyAccessor accessor in accessors)
-            {
-                result = accessor.GetValue(result);
-            }
-            return result;
-        }
-
-        public void SetValue(object source, object value, List<IPropertyAccessor> accessors)
-        {
-            object obj = source;
-            IPropertyAccessor leafAccessor = accessors[0];
-
-            int offset = 0;
-
-            //if (accessors.Count == 1)
-            //    offset = 1;
-
-            //if (accessors.Last().PropertyInfo.PropertyType == typeof(int))
-            //{
-            //    offset = 1;
-            //}
-            //else if (accessors.Last().PropertyInfo.PropertyType == typeof(string))
-            //{
-            //    offset = 0;
-            //}
-
-            foreach (IPropertyAccessor accessor in accessors.Take(accessors.Count - offset))
-            {
-                obj = accessor.GetValue(obj);
-                leafAccessor = accessor;
-            }
-
-            leafAccessor.SetValue(obj, value);
-        }
-
-        public IPropertyAccessor CreatePropertyAccessor(string objectName, string propertyName)
-        {
-            var propertyInfo = Type.GetType(objectName).GetProperty(propertyName);
-            return PropertyInfoHelper.CreateAccessor(propertyInfo);
+            result = helper.GetValue(obj, field);
+            Assert.AreEqual(result, newValue);
         }
     }
 }

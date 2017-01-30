@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Reflection;
 
 namespace Tools.Reflection
@@ -63,14 +61,22 @@ namespace Tools.Reflection
         //
         public bool SetValue(object obj, T field, Dictionary<T, string> values)
         {
+            if (values[field] == null || this._fields[field] == null)
+            {
+                return false;
+            }
+
             List<IPropertyAccessor> accessor = this._fields[field];
             Type propertyType = accessor.Last().PropertyInfo.PropertyType;
             string value = values[field];
 
             if (propertyType == typeof(string))
             {
-                SetValue(obj, value, field);
-                return true;
+                if (value.Trim().Length > 0)
+                {
+                    SetValue(obj, value, field);
+                    return true;
+                }
             }
             else if (propertyType == typeof(int))
             {
@@ -81,10 +87,6 @@ namespace Tools.Reflection
                 {
                     SetValue(obj, parsedValue, field);
                     return true;
-                }
-                else
-                {
-                    return false;
                 }
             }
             else if (propertyType == typeof(bool))
@@ -102,10 +104,6 @@ namespace Tools.Reflection
                     SetValue(obj, parsedValue, field);
                     return true;
                 }
-                else
-                {
-                    return false;
-                }
             }
             else if (propertyType == typeof(Decimal))
             {
@@ -116,14 +114,21 @@ namespace Tools.Reflection
                     SetValue(obj, parsedValue, field);
                     return true;
                 }
-                else
-                {
-                    return false;
-                }
             }
             else
             {
-                throw new ApplicationException("Invalid type: " + propertyType.ToString());
+                throw new ApplicationException("SetValue() - invalid type: " + propertyType.ToString());
+            }
+            return false;
+        }
+
+        public void SetValues(object obj, T first, T last, Dictionary<T, string> values)
+        {
+            List<T> fields = this._GetEnumSubset(first, last);
+
+            foreach (T field in fields)
+            {
+                this.SetValue(obj, field, values);
             }
         }
 
@@ -148,6 +153,42 @@ namespace Tools.Reflection
             }
 
             accessors[accessors.Count - 1].SetValue(_obj, value);
+        }
+
+        private List<T> _GetEnumSubset<T>(T first, T last)
+            where T : struct, IComparable, IConvertible, IFormattable
+        {
+            List<T> list = new List<T>();
+
+            // Less than zero     x is less than y.
+            // Zero               x equals y.
+            // Greater than zero  x is greater than y.
+
+            foreach (T value in Enum.GetValues(typeof(T)))
+            {
+                if (
+                      (first.CompareTo(value) == 0 || first.CompareTo(value) < 0)
+                   && (last.CompareTo(value) == 0 || last.CompareTo(value) > 0)
+                   )
+                {
+                    list.Add(value);
+                }
+            }
+
+            return list;
+        }
+
+        private T _GetEnumFromString<T>(string enumDesc)
+            where T : struct, IComparable, IConvertible, IFormattable
+        {
+            foreach (T value in Enum.GetValues(typeof(T)))
+            {
+                if (value.ToString().Equals(enumDesc))
+                {
+                    return value;
+                }
+            }
+            throw new ApplicationException(String.Format("GetEnumFromString: value not a valid enum: {0}", enumDesc));
         }
     }
 }

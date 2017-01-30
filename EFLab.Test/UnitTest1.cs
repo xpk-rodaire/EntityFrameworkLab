@@ -317,33 +317,25 @@ namespace EFLab.Test
             helper.Add(Field.EnumField1, t, "Field1");
             helper.Add(Field.EnumField2, t, "Class2.Class3.FirstName3");
             helper.Add(Field.EnumField3, t, "Class2.Class3.Age3");
-        
+            helper.Add(Field.EnumField4, t, "Field5");
+
             TestClass1 tc1 = new TestClass1();
 
-            //TestGetSet(helper, tc1, 1234, 12345, Field.EnumField1);
-            //TestGetSet(helper, tc1, "FirstName3", "NewFirstName", Field.EnumField2);
-            //TestGetSet(helper, tc1, 456, 4568, Field.EnumField3);
+            TestGetSet(helper, tc1, tc1.Field1, 12345, Field.EnumField1);
+            TestGetSet(helper, tc1, tc1.Class2.Class3.FirstName3, "NewFirstName", Field.EnumField2);
+            TestGetSet(helper, tc1, tc1.Class2.Class3.Age3, 4568, Field.EnumField3);
+            TestGetSet(helper, tc1, tc1.Field5, DateTime.Now, Field.EnumField4);
 
             var values = new Dictionary<Field, string>();
             values.Add(Field.EnumField1, "472598");
             values.Add(Field.EnumField2, "Steve was here");
             values.Add(Field.EnumField3, "99837");
+            values.Add(Field.EnumField4, "1/29/2017 12:00:00 AM");
 
             TestGetSet2(helper, tc1, values, Field.EnumField1);
             TestGetSet2(helper, tc1, values, Field.EnumField2);
             TestGetSet2(helper, tc1, values, Field.EnumField3);
-        }
-
-        private void TestGetSet2(
-            PropertyInfoEnumHelper<Field> helper,
-            object obj,
-            Dictionary<Field, string> values,
-            Field field)
-        {
-            // Copy value from values into obj
-            helper.SetValue(obj, field, values);
-            // Verify value in obj matches
-            Assert.AreEqual(values[field], helper.GetValue(obj, field).ToString());
+            TestGetSet2(helper, tc1, values, Field.EnumField4);
         }
 
         private void TestGetSet(
@@ -360,6 +352,18 @@ namespace EFLab.Test
 
             result = helper.GetValue(obj, field);
             Assert.AreEqual(result, newValue);
+        }
+
+        private void TestGetSet2(
+            PropertyInfoEnumHelper<Field> helper,
+            object obj,
+            Dictionary<Field, string> values,
+            Field field)
+        {
+            // Copy value from values into obj
+            helper.SetValue(obj, field, values);
+            // Verify value in obj matches
+            Assert.AreEqual(values[field], helper.GetValue(obj, field).ToString());
         }
     }
 }

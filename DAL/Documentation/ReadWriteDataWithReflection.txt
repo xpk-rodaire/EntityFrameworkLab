@@ -1,0 +1,41 @@
+﻿https://igorshare.wordpress.com/2008/01/11/codedom-extensions-and-dynamic-linq-stringscript-to-linq-emitting/
+
+http://www.dotnetfunda.com/articles/show/520/parsing-linq-queries-as-string-with-codedom
+
+
+
+
+1:n mapping of in field to out field
+
+	if (Utils.Utils.ExistsAndNotEmpty(values, Mark4FileProcesser.Mark4FileRecord1094CField.CerfificationsofEligibilityA))
+	{
+		f1094C.QualifyingOfferMethodIndSpecified = true;
+		f1094C.QualifyingOfferMethodInd = DigitBooleanType.Item1;
+	}
+
+
+Setting objects do not map to incoming field
+
+	if (this.TransmissionType == TransmissionType.F1095CCorrections)
+	{
+		f1094C.ALEMemberInformationGrp = null;
+	}
+
+Encrypted Fields
+
+	values[Mark4FileProcesser.Mark4FileRecord1094CField.ERContactLastName] = SecurityUtils.Decrypt(
+		f1094C.EmployerInformationGrp.ContactNameGrp.PersonLastNmEncrypted,
+		f1094C.EmployerInformationGrp.ContactNameGrp.PersonLastNmIV,
+		this.UserName
+	);
+
+	Incoming = PersonLastNmEncrypted, PersonLastNmIV
+	Outgoing = ERContactLastName
+
+Some logic needed
+
+    // Field 19
+    if (f1094C.AuthoritativeTransmittalInd == this.TranslateBoolToDigitalBooleanType(true))
+    {
+        values[Mark4FileProcesser.Mark4FileRecord1094CField.AuthoritativeTransmittal] = "YES";
+    }

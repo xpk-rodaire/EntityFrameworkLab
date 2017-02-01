@@ -145,3 +145,84 @@ Need abstract/base class Form1094CUpstreamDetailType
 http://stackoverflow.com/questions/389094/how-to-create-a-dynamic-linq-join-extension-method
 https://code.msdn.microsoft.com/csharpsamples
 https://igorshare.wordpress.com/2008/01/11/codedom-extensions-and-dynamic-linq-stringscript-to-linq-emitting/
+http://www.dotnettricks.com/learn/linq/sql-joins-with-csharp-linq
+https://visualstudiomagazine.com/Articles/2011/10/01/To-Think-in-LINQ.aspx
+http://www.dotnettricks.com/learn/linq/ienumerable-vs-iqueryable
+
+
+LINQ-to-Objects is a set of extension methods on IEnumerable<T> that allow you to perform in-memory query operations on
+arbitrary sequences of objects. The methods accept simple delegates when necessary.
+
+LINQ-to-Entities is a LINQ provider that has a set of extension methods on IQueryable<T>. The methods build up an 
+expression tree (which is why delegates are actually passed as Expression<>s), and the provider will build up a SQL
+query based on its parsing of that expression tree.
+
+As an example, consider the following queries:
+
+   LINQ-to-Entities = IQueryable<T>
+   var query1 = mydb.MyEntity.Select(x => x.SomeProp).Where(x => x == "Prop");
+
+This query will build up an expression tree consisting of a select and a where, with the two lambdas actually 
+considered as LambdaExpressions. The LINQ-to-Entities provider will translate that into SQL that both selects and filters.
+
+   LINQ-to-Objects = IEnumerable<T>
+   var query2 = mydb.MyEntity.Select(x => x.SomeProp).AsEnumerable().Where(x => x == "Prop");
+
+This query inserts an AsEnumerable(), which will force the remainder of the query to use LINQ-to-Objects. In that 
+case, the provider will generate SQL based on only the selection, return all those records from the database, and then the 
+filtering will occur in-memory. Obviously, that's likely going to be much slower.
+
+        [TestMethod]
+        public void _Test1()
+        {
+            using (var context = new DbEntities())
+            {
+                IQueryable<FakeClass1> x =
+                    (from t in context.Transmission
+
+                     join f1094C in context.Record1094C
+                     on t.TransmissionId equals f1094C.Transmission.TransmissionId
+
+                     join f1095C in context.Record1095C
+                     on f1094C.Form1094CUpstreamDetailTypeId equals f1095C.Form1094CUpstreamDetailType.Form1094CUpstreamDetailTypeId
+
+                     select new FakeClass1
+                     {
+                         FieldA = t.TransmissionId,
+                         FieldB = f1095C.Form1095CUpstreamDetailTypeId
+                     }
+                );
+
+                 IQueryable<string> y =
+                   (from t in x
+                    join err in context.Record1095CError
+                    on t.FieldB equals err.CorrectionRecord1095CId
+                    select err.MessageCode
+                   );
+
+                var list = y.ToList();
+
+                //string id = list[0];
+
+                var z = 
+                    (from t in context.Transmission
+
+                     join f1094C in context.Record1094C
+                     on t.TransmissionId equals f1094C.Transmission.TransmissionId
+
+                     join f1095C in context.Record1095C
+                     on f1094C.Form1094CUpstreamDetailTypeId equals f1095C.Form1094CUpstreamDetailType.Form1094CUpstreamDetailTypeId
+
+                     select new
+                     {
+                        FieldA = t.TransmissionId,
+                        FieldB = f1095C.Form1095CUpstreamDetailTypeId
+                    }
+                ).AsEnumerable();
+
+                var list2 = z
+                .Select(c => new Tuple<int, int>(c.FieldA, c.FieldB))
+                .ToList();
+
+            }
+        }

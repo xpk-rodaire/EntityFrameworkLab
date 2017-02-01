@@ -1,5 +1,7 @@
 ﻿//Copyright (C) Microsoft Corporation.  All rights reserved.
 
+// https://code.msdn.microsoft.com/DynamicQuery-f65f6a4d
+
 using System;
 using System.Collections.Generic;
 using System.Text;

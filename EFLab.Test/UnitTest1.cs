@@ -1,6 +1,5 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Data.Entity;
 using EFLab.DAL;
 using System.Linq;
 using System.Collections.Generic;

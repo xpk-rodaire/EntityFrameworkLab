@@ -141,3 +141,7 @@ public List<SCO.IRS.ACA.FormData.DAL.TY2015_06.Form1094CUpstreamDetailType>
 Transmission.Form1094CRecords  { get; set; }
 
 Need abstract/base class Form1094CUpstreamDetailType
+
+http://stackoverflow.com/questions/389094/how-to-create-a-dynamic-linq-join-extension-method
+https://code.msdn.microsoft.com/csharpsamples
+https://igorshare.wordpress.com/2008/01/11/codedom-extensions-and-dynamic-linq-stringscript-to-linq-emitting/

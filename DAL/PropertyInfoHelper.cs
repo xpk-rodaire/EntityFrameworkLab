@@ -4,7 +4,7 @@ using System.Reflection;
 
 // http://stackoverflow.com/questions/724143/how-do-i-create-a-delegate-for-a-net-property
 
-namespace Tools.Reflection
+namespace SCO.IRS.ACA.Utils
 {
     public interface IPropertyAccessor
     {

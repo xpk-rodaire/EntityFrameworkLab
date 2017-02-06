@@ -3,16 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace Tools.Reflection
+namespace SCO.IRS.ACA.Utils
 {
-    public class PropertyInfoEnumHelper<T>
+    public class PropertyInfoFieldEnumHelper<T>
          where T : struct, IComparable, IConvertible, IFormattable
     {
-        private Dictionary<T, List<IPropertyAccessor>> _fields = new Dictionary<T, List<IPropertyAccessor>>();
+        private Dictionary<T, List<IPropertyAccessor>> _enumFields = new Dictionary<T, List<IPropertyAccessor>>();
+
+        private Dictionary<string, List<IPropertyAccessor>> _stringFields = new Dictionary<string, List<IPropertyAccessor>>();
 
         public void Add(T field, Type objectType, string propertyName)
         {
-            _fields.Add(field, CreatePropertyAccessors(objectType, propertyName));
+            _enumFields.Add(field, CreatePropertyAccessors(objectType, propertyName));
+        }
+
+        public void Add(string field, Type objectType, string propertyName)
+        {
+            _stringFields.Add(field, CreatePropertyAccessors(objectType, propertyName));
         }
 
         private List<IPropertyAccessor> CreatePropertyAccessors(Type objectType, string propertyName)
@@ -33,7 +40,7 @@ namespace Tools.Reflection
 
         public object GetValue(object obj, T field)
         {
-            return _GetValue(obj, _fields[field]);
+            return _GetValue(obj, _enumFields[field]);
         }
 
         //
@@ -51,7 +58,7 @@ namespace Tools.Reflection
 
         public void SetValue(object obj, object value, T field)
         {
-            _SetValue(obj, value, _fields[field]);
+            _SetValue(obj, value, _enumFields[field]);
         }
 
         //
@@ -61,12 +68,12 @@ namespace Tools.Reflection
         //
         public bool SetValue(object obj, T field, Dictionary<T, string> values)
         {
-            if (values[field] == null || this._fields[field] == null)
+            if (values[field] == null || this._enumFields[field] == null)
             {
                 return false;
             }
 
-            List<IPropertyAccessor> accessor = this._fields[field];
+            List<IPropertyAccessor> accessor = this._enumFields[field];
             Type propertyType = accessor.Last().PropertyInfo.PropertyType;
             string value = values[field];
 

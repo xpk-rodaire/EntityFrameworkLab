@@ -22,6 +22,16 @@ namespace SCO.IRS.ACA.Utils
                 IPropertyAccessor propertyPartAccessor = null;
                 PropertyInfo propertyInfo = parentType.GetProperty(propertyPart);
 
+                if (propertyInfo == null)
+                {
+                    throw new ArgumentException(
+                        String.Format("PropertyAccessor.GetCreateAccessors(): invalid property - object '{0}' does not have property '{1}'.",
+                            parentType.FullName,
+                            propertyPart
+                        )
+                    );
+                }
+
                 if (this._properties.TryGetValue(parentType.FullName + "." + propertyPart, out propertyPartAccessor))
                 {
                     accessors.Add(propertyPartAccessor);
@@ -78,7 +88,7 @@ namespace SCO.IRS.ACA.Utils
 
 public static class PropertyAccessorStringExtension
 {
-    public static object GetValue<BaseType, FieldEnum>(
+    public static bool GetValue<BaseType, FieldEnum>(
         this SCO.IRS.ACA.Utils.PropertyAccessor<BaseType, FieldEnum> accessor,
         BaseType obj,
         string property,
@@ -88,7 +98,13 @@ public static class PropertyAccessorStringExtension
         where BaseType : class
         where FieldEnum : struct, IComparable, IConvertible, IFormattable
     {
-        return accessor.GetValue(obj, property, values, field);
+        object value = accessor.GetValue(obj, property);
+        if (value != null)
+        {
+            values.Add(field, accessor.GetValue(obj, property).ToString());
+            return true;
+        }
+        return false;
     }
 
     public static bool SetValue<BaseType, FieldEnum>(
@@ -101,14 +117,14 @@ public static class PropertyAccessorStringExtension
         where BaseType : class
         where FieldEnum : struct, IComparable, IConvertible, IFormattable
     {
-        if (values[field] == null)
+        string value = null;
+        if (!values.TryGetValue(field, out value))
         {
             return false;
         }
 
         List<SCO.IRS.ACA.Utils.IPropertyAccessor> accessors = accessor.GetCreateAccessors(obj, property);
         Type propertyType = accessors.Last().PropertyInfo.PropertyType;
-        string value = values[field];
 
         if (propertyType == typeof(string))
         {

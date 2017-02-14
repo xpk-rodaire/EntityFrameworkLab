@@ -5,14 +5,30 @@ using System.Reflection;
 
 namespace SCO.IRS.ACA.Utils
 {
-    public class PropertyAccessor<BaseType, FieldEnum>
-        where BaseType : class
-        where FieldEnum : struct, IComparable, IConvertible, IFormattable
+    public class PropertyAccessor
     {
         private Dictionary<string, IPropertyAccessor> _properties = new Dictionary<string, IPropertyAccessor>();
 
-        public List<IPropertyAccessor> GetCreateAccessors(BaseType obj, string property)
+        public PropertyAccessor(Type type)
         {
+            this.ObjectType = type;
+        }
+
+        public Type ObjectType {get; private set; }
+
+        public List<IPropertyAccessor> GetCreateAccessors(object obj, string property)
+        {
+            if (!obj.GetType().Equals(this.ObjectType))
+            {
+                throw new ArgumentException(
+                    String.Format(
+                        "PropertyAccessor: Invalid object type - expected '{0}', received '{1}'.",
+                        this.ObjectType.FullName,
+                        obj.GetType().FullName
+                    )
+                );
+            }
+
             var accessors = new List<IPropertyAccessor>();
 
             Type parentType = obj.GetType();
@@ -49,19 +65,19 @@ namespace SCO.IRS.ACA.Utils
             return accessors;
         }
 
-        public object GetValue(BaseType obj, string property)
+        public object GetValue(object obj, string property)
         {
             List<IPropertyAccessor> accessor = GetCreateAccessors(obj, property);
             return _GetValue(obj, accessor);
         }
 
-        public void SetValue(BaseType obj, string property, object value)
+        public void SetValue(object obj, string property, object value)
         {
             List<IPropertyAccessor> accessor = GetCreateAccessors(obj, property);
             _SetValue(obj, value, accessor);
         }
 
-        private object _GetValue(BaseType obj, List<IPropertyAccessor> accessors)
+        private object _GetValue(object obj, List<IPropertyAccessor> accessors)
         {
             object result = obj;
             foreach (IPropertyAccessor accessor in accessors)
@@ -71,7 +87,7 @@ namespace SCO.IRS.ACA.Utils
             return result;
         }
 
-        private void _SetValue(BaseType obj, object value, List<IPropertyAccessor> accessors)
+        private void _SetValue(object obj, object value, List<IPropertyAccessor> accessors)
         {
             object _obj = obj;
 
@@ -88,14 +104,13 @@ namespace SCO.IRS.ACA.Utils
 
 public static class PropertyAccessorStringExtension
 {
-    public static bool GetValue<BaseType, FieldEnum>(
-        this SCO.IRS.ACA.Utils.PropertyAccessor<BaseType, FieldEnum> accessor,
-        BaseType obj,
+    public static bool GetValue<FieldEnum>(
+        this SCO.IRS.ACA.Utils.PropertyAccessor accessor,
+        object obj,
         string property,
         Dictionary<FieldEnum, string> values,
         FieldEnum field
     )
-        where BaseType : class
         where FieldEnum : struct, IComparable, IConvertible, IFormattable
     {
         object value = accessor.GetValue(obj, property);
@@ -107,14 +122,13 @@ public static class PropertyAccessorStringExtension
         return false;
     }
 
-    public static bool SetValue<BaseType, FieldEnum>(
-        this SCO.IRS.ACA.Utils.PropertyAccessor<BaseType, FieldEnum> accessor,
-        BaseType obj,
+    public static bool SetValue<FieldEnum>(
+        this SCO.IRS.ACA.Utils.PropertyAccessor accessor,
+        object obj,
         string property,
         Dictionary<FieldEnum, string> values,
         FieldEnum field
     )
-        where BaseType : class
         where FieldEnum : struct, IComparable, IConvertible, IFormattable
     {
         string value = null;
